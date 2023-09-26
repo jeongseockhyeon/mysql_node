@@ -22,7 +22,7 @@ connection.end()
 */
 /*
 //테이블 정보 추가
-let params = ['node.js', 'node.js is ...', '2023-09-26', '2']
+let params = ['node.js', 'node.js is ...', '2023-09-26', '2'] //인자 순서 대로 매칭
 connection.query(
   'INSERT INTO topic (title, description, created,author_id) VALUES(?,?,?,?)',
   params,

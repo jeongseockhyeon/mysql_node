@@ -50,10 +50,23 @@ app.post('/form_receiver', function (req, res) {
 })
 
 app.get(['/topic', '/topic/:id'], function (req, res) {
-  let sql = 'SELECT id,title FROM topic'
+  let sql = 'SELECT id,title FROM topic_backup'
 
   connection.query(sql, function (err, rows, fields) {
-    res.render('view', { topics: rows })
+    let id = req.params.id
+    if (id) {
+      let sql = 'SELECT * FROM topic_backup WHERE id=?'
+      connection.query(sql, [id], function (err, topic, fields) {
+        if (err) {
+          console.log(err)
+          res.status(500).send('Internal Server Error')
+        } else {
+          res.render('view', { topics: rows, topic: topic[0] })
+        }
+      })
+    } else {
+      res.render('view', { topics: rows })
+    }
   })
   /*
   fs.readdir('data', function (err, files) {

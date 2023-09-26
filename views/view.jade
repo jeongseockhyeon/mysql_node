@@ -11,8 +11,9 @@ html
                     a(href="/topic/"+topic.id)= topic.title
         artcle 
             if topic
-                h2= title
-                =des
+                h2= topic.title
+                h3= topic.description
+                h3= topic.author
             else 
                 h2 Welcome 
                 | tutorial
