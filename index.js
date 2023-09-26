@@ -26,27 +26,52 @@ app.listen(8080, function () {
   console.log('server on 8080')
 })
 app.get('/topic/form', function (req, res) {
-  fs.readdir('data', function (err, files) {
+  // fs.readdir('data', function (err, files) {
+  //   if (err) {
+  //     console.log(err)
+  //     res.status(500).send('Internal Server Error')
+  //   } else {
+  //     res.render('form', { topics: files })
+  //   }
+  // })
+  let sql = 'SELECT id,title FROM topic_backup'
+  connection.query(sql, function (err, rows, fields) {
     if (err) {
       console.log(err)
       res.status(500).send('Internal Server Error')
-    } else {
-      res.render('form', { topics: files })
     }
+    res.render('form', { topics: rows })
   })
 })
 
 app.post('/form_receiver', function (req, res) {
   const title = req.body.title
-  const des = req.body.des
-  fs.writeFile('data/' + title, des, function (err) {
-    if (err) {
-      console.log(err)
-      res.status(500).send('Internal Server Error')
-    } else {
-      res.redirect('/topic/' + title)
+  const description = req.body.description
+  const author = req.body.author
+  const created = req.body.created
+  let sql =
+    'INSERT INTO topic_backup (title,description,created,author) VALUES(?,?,?,?)'
+
+  connection.query(
+    sql,
+    [title, description, created, author],
+    function (err, rows, fields) {
+      if (err) {
+        console.log(err)
+        res.status(500).send('Internal Server Error')
+      } else {
+        res.redirect('/topic/' + rows.insertId)
+      }
     }
-  })
+  )
+  // fs.writeFile('data/' + title, des, function (err) {
+  //   if (err) {
+  //     console.log(err)
+  //     res.status(500).send('Internal Server Error')
+  //   } else {
+  //     res.redirect('/topic/' + title)
+  //   }
+  // })
 })
 
 app.get(['/topic', '/topic/:id'], function (req, res) {

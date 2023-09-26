@@ -7,12 +7,16 @@ html
        ul 
             each topic in topics
                 li
-                    a(href="/topic/"+topic)= topic
+                    a(href="/topic/"+topic.id)= topic.title
         artcle 
             form(action='/form_receiver' method='post')
                 p
                     input(type='text',name='title')
                 p 
-                    textarea(name='des')
+                    textarea(name='description')
+                p 
+                    input(type='text',name='author')
+                p 
+                    input(type='Date',name='created')
                 p 
                     input(type='submit')
