@@ -36,10 +36,24 @@ connection.query(
 )
 connection.end()
 */
+/*
 //테이블 정보 수정
 let params = ['Node.js', 'Node.js is ...', 8]
 connection.query(
   'UPDATE topic SET title=?, description=? WHERE id=?',
+  params,
+  function (err, rows, fields) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(rows)
+    }
+  }
+)
+*/
+let params = [7]
+connection.query(
+  'DELETE FROM topic WHERE id = ?',
   params,
   function (err, rows, fields) {
     if (err) {
