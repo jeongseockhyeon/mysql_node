@@ -1,0 +1,18 @@
+html
+    head
+        meta(charset='utf-8')
+    body
+       h1 
+        a(href="/topic") NodeJS 
+       ul 
+            each topic in topics
+                li
+                    a(href="/topic/"+topic)= topic
+        artcle 
+            form(action='/form_receiver' method='post')
+                p
+                    input(type='text',name='title')
+                p 
+                    textarea(name='des')
+                p 
+                    input(type='submit')
