@@ -17,5 +17,12 @@ html
             else 
                 h2 Welcome 
                 | tutorial
-        div
-            a(href="/topic/form") 작성 
+        ul 
+            li 
+                a(href="/topic/form") 작성 
+            if topic 
+                li 
+                    a(href='/topic/'+topic.id+'/edit') 수정
+                li
+                    a(href="/topic/"+topic.id+'/del') 삭제 
+        
