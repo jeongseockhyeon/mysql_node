@@ -20,7 +20,7 @@ connection.query('SELECT * FROM topic', function (err, rows, fields) {
 })
 connection.end()
 */
-
+/*
 //테이블 정보 추가
 let params = ['node.js', 'node.js is ...', '2023-09-26', '2']
 connection.query(
@@ -35,3 +35,17 @@ connection.query(
   }
 )
 connection.end()
+*/
+//테이블 정보 수정
+let params = ['Node.js', 'Node.js is ...', 8]
+connection.query(
+  'UPDATE topic SET title=?, description=? WHERE id=?',
+  params,
+  function (err, rows, fields) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(rows)
+    }
+  }
+)
