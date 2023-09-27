@@ -32,6 +32,8 @@ const year = date.getFullYear()
 const month = ('0' + (date.getMonth() + 1)).slice(-2)
 const day = ('0' + date.getDate()).slice(-2)
 const dateStr = year + '-' + month + '-' + day
+
+//글 추가 페이지
 app.get('/topic/form', function (req, res) {
   let sql = 'SELECT id,title FROM topic_backup'
   connection.query(sql, function (err, rows, fields) {
@@ -42,7 +44,7 @@ app.get('/topic/form', function (req, res) {
     res.render('form', { topics: rows })
   })
 })
-
+//글 업로드
 app.post('/form_receiver', function (req, res) {
   const title = req.body.title
   const description = req.body.description
@@ -64,6 +66,7 @@ app.post('/form_receiver', function (req, res) {
     }
   )
 })
+//글 수정 페이지
 app.get('/topic/:id/edit', function (req, res) {
   let sql = 'SELECT id,title FROM topic_backup'
   connection.query(sql, function (err, rows, fileds) {
@@ -84,7 +87,7 @@ app.get('/topic/:id/edit', function (req, res) {
     }
   })
 })
-
+//글 수정 기능
 app.post('/topic/:id/edit', function (req, res) {
   const title = req.body.title
   const description = req.body.description
@@ -104,6 +107,7 @@ app.post('/topic/:id/edit', function (req, res) {
     }
   )
 })
+//글 삭제 페이지
 app.get('/topic/:id/del', function (req, res) {
   let sql = 'SELECT id,title FROM topic_backup'
   let id = req.params.id
@@ -125,6 +129,7 @@ app.get('/topic/:id/del', function (req, res) {
   })
 })
 
+//글 삭제 기능
 app.post('/topic/:id/del', function (req, res) {
   let id = req.params.id
   let sql = 'DELETE FROM topic_backup WHERE id=?'
@@ -138,6 +143,7 @@ app.post('/topic/:id/del', function (req, res) {
   })
 })
 
+//글 상세 페이지
 app.get(['/topic', '/topic/:id'], function (req, res) {
   let sql = 'SELECT id,title FROM topic_backup'
 
